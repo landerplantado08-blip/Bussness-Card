@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lander Cezar Plantado | Digital Card</title>
+    <style>
+        :root {
+            --psu-blue: #005682;
+            --psu-blue-dark: #00334d;
+            --accent-gold: #b08d1e;
+            --text-main: #1a1a1a;
+            --text-muted: #555;
+            --orcid-green: #A6CE39;
+            --bg-light: #f9fbfb;
+            --card-bg: #ffffff;
+            --shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-light);
+            background-image: radial-gradient(#00568208 1px, transparent 1px);
+            background-size: 20px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            color: var(--text-main);
+        }
+
+        .card {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 420px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(0,0,0,0.04);
+            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header {
+            padding: 40px 20px 25px;
+            text-align: center;
+            border-bottom: 4px solid var(--psu-blue);
+            position: relative;
+            background: linear-gradient(to bottom, #fdfdfd, #ffffff);
+        }
+
+        .share-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #f0f4f8;
+            border: none;
+            color: var(--psu-blue);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .share-btn:hover {
+            background: var(--psu-blue);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* New Enhancements: QR Button & Badge */
+        .qr-btn {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #f0f4f8;
+            border: none;
+            color: var(--psu-blue);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .qr-btn:hover {
+            background: var(--psu-blue);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .verified-badge {
+            width: 22px;
+            height: 22px;
+            color: #20b2aa;
+            vertical-align: text-bottom;
+            margin-left: 2px;
+        }
+
+        .profile-img-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            /* Update the URL below to the name of your saved image file */
+            background-image: url('profile-photo.jpeg');
+            background-size: cover;
+            background-position: center top; /* 'center top' helps keep your face in the frame for portrait photos */
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-ring {
+            position: absolute;
+            width: 110%;
+            height: 110%;
+            border-radius: 50%;
+            border: 2px solid var(--accent-gold);
+            animation: pulse 2.5s infinite cubic-bezier(0.4, 0, 0.6, 1);
+            z-index: 1;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            100% { transform: scale(1.15); opacity: 0; }
+        }
+
+        h1 { 
+            margin: 0; 
+            font-size: 1.6rem; 
+            color: var(--psu-blue); 
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+
+        .credentials {
+            display: inline-block;
+            font-size: 0.85rem;
+            color: var(--accent-gold);
+            font-weight: 700;
+            margin-top: 6px;
+            background: rgba(176, 141, 30, 0.1);
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        .job-title {
+            font-weight: 700;
+            margin: 16px 0 4px;
+            font-size: 1.05rem;
+        }
+
+        .affiliation {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .content {
+            padding: 28px 24px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 12px 16px;
+            background: #f8fbfd;
+            border: 1px solid #eef2f5;
+            border-radius: 10px;
+            transition: all 0.25s;
+        }
+
+        .info-item:hover {
+            background: #ffffff;
+            border-color: var(--psu-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,86,130,0.08);
+        }
+
+        .info-item svg {
+            width: 20px;
+            height: 20px;
+            color: var(--psu-blue);
+            flex-shrink: 0;
+        }
+
+        .orcid-box {
+            border: 1px solid #e0e0e0;
+            border-left: 4px solid var(--orcid-green);
+            border-radius: 10px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 28px;
+            background: #fafafa;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        
+        .orcid-box:hover {
+            background: #fff;
+            box-shadow: 0 4px 12px rgba(166, 206, 57, 0.15);
+            border-color: var(--orcid-green);
+            transform: translateY(-2px);
+        }
+
+        .orcid-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #333;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+        }
+
+        .orcid-icon {
+            width: 16px;
+            height: 16px;
+            color: var(--orcid-green);
+        }
+
+        .orcid-id {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .orcid-link {
+            font-size: 0.75rem;
+            color: var(--psu-blue);
+            margin-top: 6px;
+            font-weight: 600;
+        }
+
+        .btn-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--psu-blue);
+            color: white;
+            grid-column: span 2;
+            box-shadow: 0 4px 12px rgba(0,86,130,0.2);
+        }
+
+        .btn-primary:hover {
+            background: var(--psu-blue-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,86,130,0.3);
+        }
+
+        .btn-outline {
+            background: white;
+            color: var(--psu-blue);
+            border: 1px solid var(--psu-blue);
+        }
+
+        .btn-outline:hover {
+            background: #f8fbfd;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,86,130,0.08);
+        }
+
+        .tags {
+            margin-top: 32px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background: rgba(176, 141, 30, 0.08);
+            color: #8c6e11;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid rgba(176, 141, 30, 0.2);
+            transition: all 0.2s;
+            cursor: default;
+        }
+
+        .tag:hover {
+            background: var(--accent-gold);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(176, 141, 30, 0.2);
+        }
+
+        .footer {
+            padding: 18px;
+            background: #fcfcfc;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #888;
+            border-top: 1px solid #f1f1f1;
+        }
+
+        .message-box {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #222;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: translate(-50%, 20px) scale(0.9); }
+            to { opacity: 1; transform: translate(-50%, 0) scale(1); }
+        }
+
+        /* QR Modal Enhancement */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,34,68,0.6); backdrop-filter: blur(5px);
+            display: none; justify-content: center; align-items: center; z-index: 2000;
+            opacity: 0; transition: opacity 0.3s;
+        }
+        .modal-content {
+            background: white; padding: 30px; border-radius: 24px; text-align: center;
+            transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            max-width: 85%;
+        }
+        .modal-overlay.active { opacity: 1; }
+        .modal-overlay.active .modal-content { transform: scale(1); }
+        .close-modal {
+            margin-top: 20px; background: #f1f5f9; border: none; padding: 10px 24px;
+            border-radius: 12px; font-weight: 600; cursor: pointer; color: var(--psu-blue);
+            transition: all 0.2s;
+        }
+        .close-modal:hover { background: #e2e8f0; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="header">
+            <button class="qr-btn" onclick="toggleQRModal()" aria-label="Show QR Code" title="Show QR Code">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            </button>
+            <button class="share-btn" onclick="shareProfile()" aria-label="Share Profile" title="Share this card">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+            </button>
+            <div class="profile-img-container">
+                <div class="profile-ring"></div>
+                <div class="profile-img"></div>
+            </div>
+            <h1>Lander Cezar Plantado <svg class="verified-badge" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7L6 12.6l1.5-1.5 2.6 2.6 6.4-6.4 1.5 1.5-7.9 7.9z"/></svg></h1>
+            <span class="credentials">MSc, RFP</span>
+            
+            <p class="job-title">Instructor 1 — Fisheries & Marine Science</p>
+            <p class="affiliation">
+                College of Fisheries and Marine Science<br>
+                Partido State University – Sagñay Campus
+            </p>
+        </div>
+
+        <div class="content">
+            <div class="contact-info">
+                <a href="mailto:lander.plantado@parsu.edu.ph" class="info-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    lander.plantado@parsu.edu.ph
+                </a>
+                <a href="tel:09389970541" class="info-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    0938-997-0541
+                </a>
+                <!-- New LinkedIn Profile -->
+                <a href="https://linkedin.com/in/yourprofile" target="_blank" class="info-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    LinkedIn Profile
+                </a>
+                <!-- Facebook Profile -->
+                <a href="https://www.facebook.com/Landerplantado08/" target="_blank" class="info-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                    Facebook Profile
+                </a>
+            </div>
+
+            <a href="https://orcid.org/0000-0002-1697-2272" target="_blank" class="orcid-box">
+                <div class="orcid-header">
+                    <svg class="orcid-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.525 0 .947.431.947.947s-.422.947-.947.947a.95.95 0 0 1-.947-.947c0-.525.422-.947.947-.947zm-.722 3.038h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.025-5.325 5.025h-3.919V7.416zm1.444 1.303v7.444h2.297c3.272 0 4.022-2.484 4.022-3.722 0-2.016-1.284-3.722-4.097-3.722h-2.222z"/></svg>
+                    ORCID iD
+                </div>
+                <span class="orcid-id">0000-0002-1697-2272</span>
+                <span class="orcid-link">View Public Record &rarr;</span>
+            </a>
+
+            <div class="btn-group">
+                <button onclick="downloadVCard()" class="btn btn-primary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    Save Contact to Phone
+                </button>
+                <a href="https://www.researchgate.net/profile/Lander-Plantado" class="btn btn-outline" target="_blank">ResearchGate</a>
+                <a href="https://scholar.google.com/citations?user=6xR8aCUAAAAJ&hl=en" class="btn btn-outline" target="_blank">Google Scholar</a>
+            </div>
+
+            <div class="tags">
+                <span class="tag">Fisheries Research</span>
+                <span class="tag">Aquaculture Innovation</span>
+                <span class="tag">Coastal Resource Management</span>
+                <span class="tag">Scientific Publication</span>
+                <span class="tag">Aquaponics</span>
+                <span class="tag">Data Analysis</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            © 2024 ParSU Sagñay Campus
+        </div>
+    </div>
+
+    <!-- QR Modal Enhancement -->
+    <div class="modal-overlay" id="qrModal" onclick="if(event.target === this) toggleQRModal()">
+        <div class="modal-content">
+            <h3 style="margin-top:0; color: var(--psu-blue); font-weight: 800;">Scan to Connect</h3>
+            <div style="background: white; padding: 10px; border-radius: 12px; display: inline-block; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin: 10px 0;">
+                <img id="qrImage" src="" alt="QR Code" style="width: 180px; height: 180px; display: block;">
+            </div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin: 5px 0 15px;">Point your camera at the screen</p>
+            <button class="close-modal" onclick="toggleQRModal()">Close</button>
+        </div>
+    </div>
+
+    <div id="messageBox" class="message-box"></div>
+
+    <script>
+        function toggleQRModal() {
+            const modal = document.getElementById('qrModal');
+            const qrImg = document.getElementById('qrImage');
+            
+            if (modal.classList.contains('active')) {
+                modal.classList.remove('active');
+                setTimeout(() => modal.style.display = 'none', 300);
+            } else {
+                // Generate QR code dynamically based on current page URL
+                const currentUrl = encodeURIComponent(window.location.href);
+                // API to generate QR code, colored to match PSU Blue
+                qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${currentUrl}&color=005682`;
+                
+                modal.style.display = 'flex';
+                // Small delay to allow display:flex to apply before adding opacity class for animation
+                setTimeout(() => modal.classList.add('active'), 10);
+            }
+        }
+
+        function showMessage(text) {
+            const box = document.getElementById('messageBox');
+            box.textContent = text;
+            box.style.display = 'block';
+            setTimeout(() => {
+                box.style.display = 'none';
+            }, 3000);
+        }
+
+        function downloadVCard() {
+            const vcard = 
+                "BEGIN:VCARD\n" +
+                "VERSION:3.0\n" +
+                "FN:Lander Cezar Plantado\n" +
+                "N:Plantado;Lander;Cezar;MSc;RFP\n" +
+                "TITLE:Instructor 1 - Fisheries & Marine Science\n" +
+                "ORG:Partido State University - Sagñay Campus\n" +
+                "EMAIL;TYPE=INTERNET:lander.plantado@parsu.edu.ph\n" +
+                "TEL;TYPE=CELL:09389970541\n" +
+                "NOTE:ORCID iD: 0000-0002-1697-2272\n" +
+                "URL:https://orcid.org/0000-0002-1697-2272\n" +
+                "END:VCARD";
+
+            const blob = new Blob([vcard], { type: "text/vcard" });
+            const url = window.URL.createObjectURL(blob);
+            const newLink = document.createElement("a");
+            newLink.href = url;
+            newLink.setAttribute("download", "Lander_C_Plantado.vcf");
+            document.body.appendChild(newLink);
+            newLink.click();
+            document.body.removeChild(newLink);
+            showMessage("Contact card downloaded!");
+        }
+
+        async function shareProfile() {
+            const shareData = {
+                title: 'Lander Cezar Plantado | Digital Card',
+                text: 'Check out Lander Cezar Plantado\'s professional digital card.',
+                url: window.location.href
+            };
+            
+            try {
+                if (navigator.share) {
+                    await navigator.share(shareData);
+                } else {
+                    copyToClipboard(window.location.href);
+                    showMessage("Profile link copied to clipboard!");
+                }
+            } catch (err) {
+                console.error('Error sharing:', err);
+            }
+        }
+
+        function copyToClipboard(text) {
+            const tempInput = document.createElement("input");
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+        }
+    </script>
+</body>
+</html>
